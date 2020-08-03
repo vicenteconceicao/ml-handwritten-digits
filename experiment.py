@@ -4,18 +4,21 @@ import sys
 import os
 import csv
 
+# Cria diretório se não existir
 def createDirectory(path):
         if not os.path.isdir(path):
                 os.mkdir(path)
 
+# Carrega imagens e padroniza de acordo com as variaveis X e Y
 def loadImages(X, Y):
         foutImage = open("features.txt","w")
         digits.load_images('digits/data', foutImage, X, Y)
         foutImage.close
 
+# Realiza o treinamento e teste do algorítmo KNN
 def main(max, classifyMetric):
         for k in range(1, max+1):
-                foutModel = open(path+str(k)+"_"+X+"_"+Y+"_"+classifyMetric+"_result.txt","w")
+                foutModel = open(path+str(k)+"_"+X+"_"+Y+"_"+classifyMetric+"_result_2.txt","w")
                 knn.main(sys.argv[1], k, foutModel, classifyMetric)
                 foutModel.close
 
@@ -24,6 +27,7 @@ if __name__ == "__main__":
         if len(sys.argv) != 2:
                 sys.exit("Use: knn.py <data>")
 
+        # Carrega arquivo que contém combinações de dimensões de imagens
         scalesFile = open("scales/scales.csv","r")
 
         with scalesFile as csvfile:
@@ -32,7 +36,8 @@ if __name__ == "__main__":
                         X = row[0]
                         Y = row[1]
                         
-                        path = "results/"
+                        # Pastas onde serão armazenados os resultados dos treinamentos/testes
+                        path = "results_2/"
                         createDirectory(path)
                         path += X+"_"+Y+"/"
                         createDirectory(path)
@@ -40,7 +45,9 @@ if __name__ == "__main__":
                 
                         loadImages(int(X), int(Y))
 
-                        main(10, 'manhattan')
+                        main(6, 'euclidean')
+                        print(X+"_"+Y+' euclidean')
+                        #main(100, 'manhattan')
 
        
         
