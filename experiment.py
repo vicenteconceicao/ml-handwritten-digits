@@ -46,8 +46,8 @@ if __name__ == "__main__":
                         loadImages(int(X), int(Y))
 
                         main(6, 'euclidean')
+                        #main(6, 'manhattan')
                         print(X+"_"+Y+' euclidean')
-                        #main(100, 'manhattan')
 
        
         
